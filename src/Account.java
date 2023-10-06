@@ -5,14 +5,14 @@ public class Account {
         this.balance = balance;
     }
 
-    public synchronized void deposit(int amount) {
+    public synchronized void deposit(int amount) { //пополнение баланса
         balance += amount;
         System.out.println("Пополнение на " + amount + ". Новый баланс: " + balance);
-        notifyAll();
+        notifyAll(); //повещаем все потоки
     }
 
-    public synchronized void withdraw(int amount) throws InterruptedException {
-        while (balance < amount) {
+    public synchronized void withdraw(int amount) throws InterruptedException { //снятие с баланса
+        while (balance < amount) { //ждём, если на балансе меньше 500 рублей
             wait();
         }
         balance -= amount;
